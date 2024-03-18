@@ -1,1 +1,140 @@
 @import url(variables.css);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 10vh;
+    background: var(--color-background);
+    margin: 0;
+}
+.menu1Header{
+    display: flex;
+    width: 50%;
+    color: var(--color-secondary);
+    align-items: center;
+}
+.menu1Header h4{
+    margin-left: 15%;
+    font-weight: 400;
+    font-size: 2.5em;
+}
+.menu2Header{
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+.menu2Header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.menu2Header div a{
+    text-decoration: none;
+    font-size: 1.5em;
+    color: var(--color-primary);
+}
+
+
+
+.menu1{
+    display: grid;
+    background: var(--color-background);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+    "item1 item2"
+    ;
+    height: 100%;
+    width: 100%;
+}
+.item1Menu1{
+    grid-area: item1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 80vh;
+}
+.item1Menu1 div{
+    margin-left: 26%;
+    margin-top: 0;
+}
+.item1Menu1 h1{
+    color: var(--color-secondary);
+    font-size: 7em;
+    font-weight: 400;
+}
+.item1Menu1 p{
+    color: var(--color-primary);
+    font-size: 2em;
+    font-weight: 400;
+}
+.item1Menu1 button{
+    color: var(--color-primary);
+    background: var(--color-secondary);
+    font-size: 1.5em;
+    font-weight: 400;
+    width: 28vh;
+    height: 8vh;
+    margin-top: 25%;
+    border: none;
+}
+.item2Menu1{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+   
+}
+.item2Menu1 img{
+    width: 50%;
+    height: 60%;
+    overflow: hidden;
+}
+.menu2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    width: 100%;
+    grid-template-areas: 
+    "item1M2 item2M2"
+    ;
+    background: var(--color-background)
+}
+.item1Menu2{
+    grid-area: item1M2;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    overflow: hidden;
+}
+.item1Menu2 img{
+    padding: 10vh;
+}
+.item2Menu2{
+    grid-area: item2M2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.item2Menu2 h5{
+    color: var(--color-secondary);
+}
+.item2Menu2 h2{
+    color: var(--color-primary);
+}
+.item2Menu2 p{
+    color: var(--color-primary);
+    width: 48vh;
+}
+.item2Menu2 button{
+    background: var(--color-secondary);
+    color: var(--color-primary);
+}
