@@ -28,7 +28,7 @@
 .container{
     display: grid;
     margin-top: 10vh;
-    grid-template-rows: repeat(6,1fr);
+    grid-template-rows: repeat(5,1fr) 0.4fr;
     height: 100%;
 
 }
@@ -58,7 +58,20 @@
     font-size: 1.5em;
     color: var(--color-primary);
 }
+.menu2Header div a:hover{
+    color: var(--color-secondary);
+}
 
+.body button{
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+.body button:hover{
+    box-shadow: 3px 3px 15px var(--color-secondary)
+}
+.iconHeader{
+    display: none;
+}
 
 
 .menu1{
@@ -71,6 +84,7 @@
     ;
     height: 90vh;
     width: 100%;
+    overflow: hidden;
 }
 .item1Menu1{
     grid-area: item1;
@@ -78,7 +92,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    height: 80vh;
+    height: 90vh;
 }
 .item1Menu1 div{
     margin-left: 26%;
@@ -358,6 +372,13 @@
     flex-direction: column;
     padding-left: 30%;
 }
+.item1Menu6 li a{
+    text-decoration: none;
+    color: var(--color-primary);
+}
+.item1Menu6 li a:hover{
+    color: var(--color-secondary);
+}
 .bottom{
     margin-right: 80%;
     border-bottom: 2px solid var(--color-secondary);    
@@ -381,9 +402,20 @@
     flex-direction: column;
     padding-left: 30%;
 }
-@media(width < 400px){
+@media(width < 800px){
     .header{
         width: 100%;
+        position: fixed;
+    }
+    .iconHeader{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        padding-right: 1vh;
+    }
+    .menu2Header{
+        display: none;
     }
    .container{
     display: flex;
@@ -393,28 +425,185 @@
    .menu1{
     display: flex;
     flex-direction: column;
-    height: 100%:
+    height: 89vh;
    }
+   .item1Menu1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    height: 35vh;
+   }
+   .item1Menu1 div{
+    margin-left: 0;
+   }
+   .item1Menu1 div h1{
+    font-size: 3em;
+   }
+   .item1Menu1 div p{
+    font-size: 1em;
+   }
+   .item1Menu1 div button{
+    width: 15vh;
+    height: 100%;
+    font-size: 80%;
+   }
+   .item2Menu1 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    }
+    .item2Menu1 img{
+        margin: 0;
+        height: 80%;
+        width: 80%;
+    }
    .menu2{
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
+    height: 90vh;
+   }
+   .item1Menu2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     height: 100%;
+    margin-top: 2vh;
+   }
+   .item1Menu2 img{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+   }
+   .item2Menu2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+   }
+   .item2Menu2 h2, .item2Menu2 h5{
+    margin: 0;
+    padding: 0;
+   }
+   .item2Menu2 h5{
+    font-size: 0.7em;
+   }
+   .item2Menu2 h2{
+    font-size: 2em;
+   }
+   .item2Menu2 div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+   }
+   .item2Menu2 div p{
+    font-size: 0.7em;
    }
    .menu3{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
    }
+   .item1Menu3{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+   }
+   .item2Menu3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+   }
+   .item2Menu3 div{
+    width: 90%;
+    margin-top: 2vh;
+   }
+   .item2Menu3 div{
+    width: 90%;
+    margin-top: 2vh;
+   }
+   .item2Menu3 div img {
+    width: 50%;
+    height: 100%;
+}
+
    .menu4{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
    }
+   .item1Menu4{
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+   }
+   .item2Menu4 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    justify-content: flex-start;
+    align-items: center;
+}
+   .item2Menu4 div img {
+    width: 58%;
+    height: 100%;
+    }
    .menu5{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+   }
+   .menu5 div{
+    width: 85%;
+   }
+   .menu5 div{
+    width: 85%;
+    text-align: center;
+   }
+   .item1Menu5 h1{
+    font-size: 1.5em;
+    width: 100%;
    }
    .menu6{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 90vh;
    }
-}
+   .item1Menu6{
+    padding-left: 5vh;
+   }
+   .item2Menu6{
+    padding-left: 5vh;
+   }
+   .item3Menu6{
+    padding-left: 5vh;
+   }
+   .item4Menu6{
+    padding-left: 5vh;
+   }
