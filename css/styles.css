@@ -1,10 +1,13 @@
 @import url(variables.css);
 
+
+
 *{
     margin: 0;
     padding: 0;
-     font-family: "Monda", sans-serif;
+     font-family: "Anek Devanagari", sans-serif;
 }
+
 
 
 .main{
@@ -49,7 +52,7 @@
 
 .menu_campusShop ul li:nth-child(1){
     display: flex;
-    border: 2px solid var(--color-font2);
+    
     border-radius: 5px;
     background: var(--color-cuarto);
     font-weight: bold;
@@ -110,6 +113,7 @@
     color: var(--color-font2);
     height: 100vh;
     grid-area: images;
+    background: img;
 
 }
 
@@ -130,6 +134,7 @@
 .titulo_allproducts h1{
     font-size: 37px;
     margin-top: 10px;
+    color: #fff;
 }
 
 .contenedor_imagenes{
@@ -145,7 +150,7 @@
 
 .boxImg{
     margin: 10px;
-    background: #ffffdd;
+    background: #8449cd;
     border-radius: 15px;
 }
 .boxImg img{
@@ -157,7 +162,6 @@
 .box_bottom{
     height: 55px;
     border-radius: 10px;
-    border: 3px solid var(--color-body);
     background: var(--color-cuarto);
     display: flex;
     flex-direction: row;
@@ -172,6 +176,7 @@
 }
 
 .text_bottom h5{
+    color: #fff;
     font: 10px;
     margin-bottom: 5px;
 }

@@ -1,3 +1,10 @@
 :root{
-    --color-primary: #fff;
+    --color-body: #050221;
+    --color-primary: #0d6efd;
+    -color-secundary: #7dad93;
+    --color-ternary: #4a6924;
+    --color-cuarto: #8449cd;
+    --color-button: #443580;
+    --color-font: #384252;
+    --color-font2:rgb(255, 255, 255);
 }
