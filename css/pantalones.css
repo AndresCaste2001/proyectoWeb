@@ -18,9 +18,12 @@
     ;
 }
 
-/* CONTENEDOR BANNER */
+.main button{
+    cursor: pointer;
+}
 .campus_shop{
     height: 100%;
+    background: #09043c;
     grid-area: shop;
     display: flex;
     align-items: center;
@@ -32,6 +35,7 @@
     margin-top: 30px;
     font-size: 35px;
     color: var(--color-font2);
+    
 }
 
 .menu_campusShop {
@@ -106,7 +110,7 @@
     color: var(--color-font2);
 }
 
-/* CONTENEDOR IMAGENES */
+
 .contenedor_items{
     height: 100vh;
     grid-area: images;
@@ -129,6 +133,7 @@
 .titulo_allproducts h1{
     font-size: 30px;
     margin-top: 10px;
+    color: var(--color-font2);
 }
 
 .contenedor_imagenes{

@@ -17,16 +17,19 @@
     "shop images"
     ;
 }
+.main button{
+    cursor: pointer;
+}
 
-/* CONTENEDOR BANNER */
 .campus_shop{
     color: var(--color-font2);
     height: 100%;
-    grid-area: shop;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
+    grid-area: shop;
+    background: #09043c;
 }
 
 .campus_shop h2{

@@ -20,6 +20,9 @@
     "shop images"
     ;
 }
+.main button{
+    cursor: pointer;
+}
 .campus_shop{
     color: var(--color-font2);
     height: 100%;
@@ -28,6 +31,8 @@
     justify-content: space-between;
     grid-area: shop;
     display: flex;
+    background: #09043c;
+    border-radius: 10px;
     
 }
 
