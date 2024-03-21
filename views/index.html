@@ -34,6 +34,15 @@
             <i class='bx bx-sun' style='color:#087f5b'  ></i>
         </div>
     </header>
+    <div class="navMovil">
+        <ul>
+            <li><a href="#menu1">Home</a></li>
+            <li><a href="#menu2">About</a></li>
+            <li> <a href="#menu3">Menu</a></li>
+            <li><a href="#menu4">Service</a></li>
+            <li><a href="#menu6">Contact</a></li>
+        </ul>
+    </div>
     <div class="container">
         <div id="menu1" class="menu1">
             <div class="item1Menu1">
@@ -292,5 +301,24 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const iconHeader = document.querySelector('.iconHeader');
+            const navMovil = document.querySelector('.navMovil');
+
+            // Toggle the visibility of navMovil on iconHeader click
+            iconHeader.addEventListener('click', function() {
+                navMovil.classList.toggle('show');
+            });
+
+            // Hide navMovil after clicking one of its options
+            const navItems = document.querySelectorAll('.navMovil ul li a');
+            navItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    navMovil.classList.remove('show');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

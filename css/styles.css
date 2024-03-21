@@ -72,6 +72,9 @@
 .iconHeader{
     display: none;
 }
+.navMovil{
+    display: none;
+}
 
 
 .menu1{
@@ -417,6 +420,30 @@
     .menu2Header{
         display: none;
     }
+    .navMovil{
+        position: fixed;
+        width: 100%;
+        height: 45vh;
+        justify-content: space-around;
+        align-items: center;
+        background: #2c2b47;
+    }
+    .navMovil ul{
+        display: flex;
+        list-style: none;
+        width: 100%;
+        height: 100%;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+    }
+    .navMovil ul li a{
+        text-decoration: none;
+        color: var(--color-primary);
+    }
+    .navMovil.show {
+        display: block;
+    }
    .container{
     display: flex;
     flex-direction: column;
@@ -606,4 +633,5 @@
    }
    .item4Menu6{
     padding-left: 5vh;
-   }
+    }
+}
