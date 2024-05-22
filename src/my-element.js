@@ -1,9 +1,75 @@
 import { LitElement, css, html } from 'lit'
+import{
+  getAllcoats,
+  getAllShirts,
+  getAllJeans,
+  getAllProducts
+} from './modules/producto';
 
 export class MyElement extends LitElement {
+  static properties = {
+    selectedCategoria: {type: String},
+    number: {type: Number}
+  };
+
   constructor() {
-    super()
+    super();
+    this.selectedCategoria = 'Todos los productos';
+    this.number = 0;
   }
+  
+  render() {
+    return html`
+    <div class="wrapper">
+    <aside>
+      <header>
+        <h1 class="logo">AndresShop</h1>
+      </header>
+      <nav>
+        <ul class="menu">
+          <li>
+            <button class="boton-menu boton-categoria active" @click="${()=> this.changeCategory('Todos los productos')}"><box-icon name='hand-right' type='solid' color='#4b33a8'></box-icon>Todos los productos</button>
+          </li>
+          <li>
+            <button class="boton-menu boton-categoria" @click="${()=> this.changeCategory('abrigos')}"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Abrigos</button>
+          </li>
+          <li>
+            
+            <button class="boton-menu boton-categoria" @click="${()=> this.changeCategory('camisas')}"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Camisetas</button>
+          </li>
+          <li>
+            <button class="boton-menu boton-categoria" @click="${()=> this.changeCategory('pantalones')}"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Pantalones</button>
+          </li>
+          <li>
+            <a class="boton-menu boton-carrito" href="src/carrito.html" @click="${()=> this.changeCategory('carrito')}"><box-icon name='cart' type='solid' color='#ffffff' ></box-icon>Carrito <span class="numerito">0</span></a>
+          </li>
+        </ul>
+      </nav>
+      <footer>
+        <p class="texto-footer">© 2024 Andres Caste</p>
+      </footer>
+    </aside>
+    <main>
+      <h2 class="titulo-principal">${this.selectedCategoria}</h2>
+      <my-producto .category="${this.selectedCategoria}" @product-added="${this.updateNumber}"></my-producto>
+    </main>
+  </div>
+    `
+  }
+
+  changeCategory(category) {
+    this.selectedCategory = category;
+  }
+  updateNumber(){
+    this.trolleyDetails();
+  }
+
+  async trolleyDetails(){
+    let data = await getAllTrolley();
+    let conteo = data.length;
+    this.number = conteo;
+  }
+
   static styles = css`
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -106,7 +172,16 @@ aside{
 .boton-carrito {
     margin-top: 2rem;
 }
-
+.numerito{
+    background-color: var(--clr-white);
+    color: var(--clr-main);
+    padding: .15rem .25rem;
+    border-radius: .25rem;
+}
+.boton-carrito.active .numerito {
+    background-color: var(--clr-main);
+    color: var(--clr-white);
+}
 .texto-footer{
     color: var(--clr-main-light);
     font-size: 0.85rem;
@@ -160,63 +235,189 @@ main{
     background-color: var(--clr-main);
     color: var(--clr-white);
 }
-  `
-  render() {
-    return html`
-    <div class="wrapper">
-    <aside>
-      <header>
-        <h1 class="logo">AndresShop</h1>
-      </header>
-      <nav>
-        <ul class="menu">
-          <li>
-            <button class="boton-menu boton-categoria active"><box-icon name='hand-right' type='solid' color='#4b33a8'></box-icon>Todos los productos</button>
-          </li>
-          <li>
-            
-            <button class="boton-menu boton-categoria"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Abrigos</button>
-          </li>
-          <li>
-            
-            <button class="boton-menu boton-categoria"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Camisetas</button>
-          </li>
-          <li>
-            <button class="boton-menu boton-categoria"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Pantalones</button>
-          </li>
-          <li>
-            <a class="boton-menu boton-carrito" href="src/carrito.html"><box-icon name='cart' type='solid' color='#ffffff' ></box-icon>Carrito <span class="numerito">0</span></a>
-          </li>
-        </ul>
-      </nav>
-      <footer>
-        <p class="texto-footer">© 2024 Andres Caste</p>
-      </footer>
-    </aside>
-    <main>
-      <h2 class="titulo-principal">Todos los productos</h2>
-      <div class="contenedor-productos">
-        <div class="producto">
-          <img class="producto-imagen" src="src/assets/free-nature-images.jpg" alt="">
-          <div class="producto-detalles">
-            <h3 class="producto-titulo">Abrigo 01</h3>
-            <p class="producto-precio">$1000</p>
-            <button class="producto-agregar">Agregar</button>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-    `
-  }
+/** CARRITO **/
 
-
-
-  static get styles() {
-    return css`
-      
-    `
-  }
+.contenedor-carrito{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-window.customElements.define('my-element', MyElement)
+.carrito-vacio,
+.carrito-comprado{
+    color: var(--clr-main);
+}
+.carrito-productos{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.carrito-producto{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--clr-gray);
+    color: var(--clr-main);
+    padding: 0.5rem;
+    padding-right: 1.5rem;
+    border-radius: 1rem;
+    align-items: center;
+}
+.carrito-producto-imagen{
+    width: 4rem;
+    border-radius: 1rem;
+}
+.carrito-producto small{
+    font-size: .75rem;
+}
+.carrito-producto-eliminar{
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+.carrito-acciones{
+    display: flex;
+    justify-content: space-between;
+}
+.carrito-acciones-vaciar{
+    border: 0;
+    background-color: var(--clr-gray);
+    padding: 1rem;
+    border-radius: 1rem;
+    color: var(--clr-main);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.carrito-acciones-derecha{
+    display: flex;
+}
+.carrito-acciones-total{
+    display: flex;
+    border: 0;
+    background-color: var(--clr-gray);
+    padding: 1rem;
+    border-radius: 1rem;
+    color: var(--clr-main);
+    text-transform: uppercase;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    gap: 1rem;
+}
+.carrito-acciones-comprar{
+    border: 0;
+    background-color: var(--clr-main);
+    padding: 1rem;
+    border-radius: 1rem;
+    color: var(--clr-white);
+    text-transform: uppercase;
+    cursor: pointer;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+.disabled{
+    display: none;
+}
+  `
+}
+export class Productos extends LitElement{
+  static properties = {
+    products: {type: Array},
+    category: {type: String}
+  }
+  constructor(){
+    super();
+    this.products = [];
+    this.category = 'all';
+  }
+  updated(changedProperties) {
+    if (changedProperties.has('category')) {
+      this.loadProducts();
+    }
+  }
+  async loadProducts() {
+    switch (this.category) {
+      case 'abrigos':
+        this.products = await getAllcoats();
+        break;
+      case 'camisas':
+        this.products = await getAllShirts();
+        break;
+      case 'pantalones':
+        this.products = await getAllJeans();
+        break;
+      case 'carrito':
+        this.products = null; 
+        break;
+      default:
+        this.products = await getAllProducts();
+    }
+  }
+  render() {
+    return html`
+    <div class="contenedor-productos">
+      ${this.products ? 
+        (Array.isArray(this.products) && this.products.length > 0 ? 
+          this.products.map(product => html`
+            <div class="producto">
+              <img class="producto-imagen" src="${product.imagen}">
+              <div class="producto-detalles">
+                <h3 class="producto-titulo">${product.nombre}</h3>
+                <p class="producto-precio">$${product.precio}</p>
+                <button class="producto-agregar" @click="${() => this.addToCart(product)}">Agregar</button>
+              </div>
+            </div>
+          `)
+        : html`<p>No products yay.</p>`)
+      : html`<my-trolley class="trolley"></my-trolley>`}
+    </div>
+    `;
+  }
+
+  addToCart(product) {
+    getProduct(product);
+    this.dispatchEvent(new CustomEvent('product-added'));
+  }
+  static get styles() {
+    return css`
+    .contenedor-productos{
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 1rem;
+  }
+  .producto-imagen{
+      max-width: 100%;
+      border-radius: 1rem;
+  }
+  .producto-detalles {
+      background-color: var(--clr-main);
+      color: var(--clr-white);
+      padding: .5rem;
+      border-radius: 1rem;
+      margin-top: -2rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+  }
+  .producto-titulo{
+      font-size: 1rem;
+  }
+  .producto-agregar{
+      border: 0;
+      background-color: var(--clr-white);
+      color: var(--clr-main);
+      padding: .5rem;
+      text-transform: uppercase;
+      border-radius: 2rem;
+      cursor: pointer;
+      border: 2px solid var(--clr-white);
+      transition: background-color 0.2s, color 0.2s;
+  }
+  .producto-agregar:hover {
+      background-color: var(--clr-main);
+      color: var(--clr-white);
+  }
+    `  
+  }
+}
+window.customElements.define('my-element', MyElement);
+customElements.define('my-producto', Productos);

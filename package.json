@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "carrito": "json-server --watch src/bd/carrito.json -p 5501"
   },
   "dependencies": {
     "lit": "^3.1.2"

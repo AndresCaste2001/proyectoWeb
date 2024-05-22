@@ -30,10 +30,10 @@
         <main>
           <h2 class="titulo-principal">Carrito</h2>
           <div class="contenedor-carrito">
-            <p class="carrito-vacio">Tu carrito esta vacio</p>
-            <div class="carrito-productos">
+            <p class="carrito-vacio ">Tu carrito esta vacio</p>
+            <div class="carrito-productos disabled">
                 <div class="carrito-producto">
-                    <img src="../src/assets/free-nature-images.jpg" alt="">
+                    <img class="carrito-producto-imagen" src="../src/assets/free-nature-images.jpg" alt="">
                     <div class="carrito-producto-titulo">
                         <small>Titulo</small>
                         <h3>Abrigo 01</h3>
@@ -50,12 +50,12 @@
                         <small>Subtotal</small>
                         <p>$1000</p>
                     </div>
-                    <button>
-                        <box-icon class="carrito-producto-eliminar" type='solid' name='trash'></box-icon>
+                    <button class="carrito-producto-eliminar">
+                        <box-icon  type='solid' name='trash' color="#961818"></box-icon>
                     </button>
                 </div>
                 <div class="carrito-producto">
-                    <img src="../src/assets/free-nature-images.jpg" alt="">
+                    <img class="carrito-producto-imagen" src="../src/assets/free-nature-images.jpg" alt="">
                     <div class="carrito-producto-titulo">
                         <small>Titulo</small>
                         <h3>Abrigo 02</h3>
@@ -72,12 +72,12 @@
                         <small>Subtotal</small>
                         <p>$1000</p>
                     </div>
-                    <button>
-                        <box-icon class="carrito-producto-eliminar" type='solid' name='trash'></box-icon>
+                    <button class="carrito-producto-eliminar">
+                        <box-icon  type='solid' name='trash' color="#961818"></box-icon>
                     </button>
                 </div>
             </div>
-            <div class="carrito-acciones">
+            <div class="carrito-acciones disabled">
                 <div class="carrito-acciones-izquierda">
                     <button class="carrito-acciones-vaciar">Vaciar Carrito</button>
                 </div>
@@ -89,6 +89,7 @@
                     <button class="carrito-acciones-comprar">comprar ahora</button>
                 </div>
             </div>
+            <p class="carrito-comprado disabled">Muchas gracias por tu compra</p>
           </div>
         </main>
       </div>
