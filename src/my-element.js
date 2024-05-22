@@ -4,7 +4,7 @@ import{
   getAllShirts,
   getAllJeans,
   getAllProducts
-} from './modules/producto';
+} from './modules/producto.js';
 
 export class MyElement extends LitElement {
   static properties = {
@@ -28,7 +28,7 @@ export class MyElement extends LitElement {
       <nav>
         <ul class="menu">
           <li>
-            <button class="boton-menu boton-categoria active" @click="${()=> this.changeCategory('Todos los productos')}"><box-icon name='hand-right' type='solid' color='#4b33a8'></box-icon>Todos los productos</button>
+            <button class="boton-menu boton-categoria" @click="${()=> this.changeCategory('Todos los productos')}"><box-icon name='hand-right' type='solid' color='#4b33a8'></box-icon>Todos los productos</button>
           </li>
           <li>
             <button class="boton-menu boton-categoria" @click="${()=> this.changeCategory('abrigos')}"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Abrigos</button>
@@ -58,7 +58,7 @@ export class MyElement extends LitElement {
   }
 
   changeCategory(category) {
-    this.selectedCategory = category;
+    this.selectedCategoria = category;
   }
   updateNumber(){
     this.trolleyDetails();
@@ -350,6 +350,7 @@ export class Productos extends LitElement{
       default:
         this.products = await getAllProducts();
     }
+    
   }
   render() {
     return html`
@@ -384,8 +385,9 @@ export class Productos extends LitElement{
       gap: 1rem;
   }
   .producto-imagen{
-      max-width: 100%;
+      widht: 30vh;
       border-radius: 1rem;
+      height: 45vh;
   }
   .producto-detalles {
       background-color: var(--clr-main);
@@ -419,5 +421,5 @@ export class Productos extends LitElement{
     `  
   }
 }
-window.customElements.define('my-element', MyElement);
+customElements.define('my-element', MyElement);
 customElements.define('my-producto', Productos);
