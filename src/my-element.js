@@ -3,7 +3,11 @@ import{
   getAllcoats,
   getAllShirts,
   getAllJeans,
-  getAllProducts
+  getAllProducts,
+  getAllCarrito,
+  getDeleteCarrito,
+  getBuyCarrito,
+  getEmptyCarrito,
 } from './modules/producto.js';
 
 export class MyElement extends LitElement {
@@ -18,6 +22,7 @@ export class MyElement extends LitElement {
     this.number = 0;
     this.showCarrito = false;
     this.carritoInstance = null;
+    this.CarritoDetails();
   }
   
   render() {
@@ -74,11 +79,11 @@ export class MyElement extends LitElement {
     
   }
   updateNumber(){
-    this.trolleyDetails();
+    this.CarritoDetails();
   }
 
-  async trolleyDetails(){
-    let data = await getAllTrolley();
+  async CarritoDetails(){
+    let data = await getAllCarrito();
     let conteo = data.length;
     this.number = conteo;
   }
@@ -441,35 +446,54 @@ export class Productos extends LitElement{
 export class Carrito extends LitElement{
   static properties = {
     products: {type: Array},
+    carrito: {type: Array}
   }
   constructor(){
     super();
     this.products = [];
+    this.carrito = [];
+    this.loadProductsCarrito()
+  }
+  async loadProductsCarrito(){
+    this.products = await getAllCarrito();
   }
   render(){
     return html`
     <div class="carrito-productos">
-                <div class="carrito-producto">
-                    <img class="carrito-producto-imagen" src="../src/assets/free-nature-images.jpg" alt="">
-                    <div class="carrito-producto-titulo">
+                ${Array.isArray(this.products) && this.products.length > 0 ?
+                  this.products.map(product => html`
+                  <div class="carrito-producto">
+                  <img class="carrito-producto-imagen" src="${product.imagen}">
+                  <div class="carrito-producto-titulo">
                         <small>Titulo</small>
-                        <h3>Abrigo 01</h3>
-                    </div>
-                    <div class="carrito-producto-cantidad">
+                        <h3>${product.nombre}</h3>
+                  </div>
+                  <div class="carrito-producto-cantidad">
                         <small>Cantidad</small>
-                        <p>1</p>
+                        <p>${product.cantidad}</p>
                     </div>
                     <div class="carrito-producto-precio">
                         <small>Precio</small>
-                        <p>$1000</p>
+                        <p>${product.precio}</p>
                     </div>
                     <div class="carrito-producto-subtotal">
                         <small>Subtotal</small>
-                        <p>$1000</p>
+                        <p>${product.precio}</p>
                     </div>
-                    <button class="carrito-producto-eliminar">
+                    <button @click="$" class="carrito-producto-eliminar">
                         <box-icon  type='solid' name='trash' color="#961818"></box-icon>
                     </button>
+                  `
+                  )
+                
+                
+                
+                
+                }
+                    
+                    
+                    
+                    
                 </div>
                 <div class="carrito-producto">
                     <img class="carrito-producto-imagen" src="../src/assets/free-nature-images.jpg" alt="">

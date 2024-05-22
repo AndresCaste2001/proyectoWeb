@@ -54,7 +54,7 @@ export const getAllcoats = async()=>{
     let jeans  = result.pantalon
     return jeans 
   } 
-  
+
   export const getAllCarrito= async()=>{
     let url = 'http://localhost:5501/carrito'
     let options = {
@@ -63,8 +63,67 @@ export const getAllcoats = async()=>{
           "content-type": "application/json"
         }
     }
-  
     let responder = await fetch(url, options);
     let result = await responder.json();
     return result
-  } 
+  }
+
+  export const getDeleteCarrito = async(id)=>{
+    try{
+    let url = `http://localhost:5501/carrito${id}`
+    let options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }
+  
+    let responder = await fetch(url, options);
+    let result = await responder.json();
+    console.log(result);
+    } catch (error) {
+      console.error('Ocurrió un error al obtener el carrito de compras:', error);
+    }
+  }
+  
+  export const getBuyCarrito = async()=>{
+    try{
+    let data = await getAllCarrito();
+    for (let item of data){
+      let url = `http://localhost:5501/carrito${item.id}`
+      let options = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    
+      let responder = await fetch(url, options);
+      let result = await responder.json();
+      console.log(result);
+    }
+    } catch (error) {
+      console.error('Ocurrió un error al obtener el carrito de compras:', error);
+    }
+  }
+  
+  export const getEmptyCarrito = async()=>{
+    try{
+    let data = await getAllCarrito();
+    for (let item of data){
+      let url = `http://localhost:5501/carrito${item.id}`
+      let options = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    
+      let responder = await fetch(url, options);
+      let result = await responder.json();
+      console.log(result);
+    }
+    } catch ( error){
+      console.error('Ocurrió un error al obtener el carrito de compras:', error);
+    }
+  }
