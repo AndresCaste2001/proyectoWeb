@@ -54,3 +54,17 @@ export const getAllcoats = async()=>{
     let jeans  = result.pantalon
     return jeans 
   } 
+  
+  export const getAllCarrito= async()=>{
+    let url = 'http://localhost:5501/carrito'
+    let options = {
+        method: 'GET',
+        Headers: {
+          "content-type": "application/json"
+        }
+    }
+  
+    let responder = await fetch(url, options);
+    let result = await responder.json();
+    return result
+  } 

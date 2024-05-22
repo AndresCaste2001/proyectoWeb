@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit'
+import { LitElement, css, html, render } from 'lit'
 import{
   getAllcoats,
   getAllShirts,
@@ -16,6 +16,8 @@ export class MyElement extends LitElement {
     super();
     this.selectedCategoria = 'Todos los productos';
     this.number = 0;
+    this.showCarrito = false;
+    this.carritoInstance = null;
   }
   
   render() {
@@ -41,7 +43,7 @@ export class MyElement extends LitElement {
             <button class="boton-menu boton-categoria" @click="${()=> this.changeCategory('pantalones')}"><box-icon name='hand-right' type='solid' color='#4b33a8' ></box-icon>Pantalones</button>
           </li>
           <li>
-            <a class="boton-menu boton-carrito" href="src/carrito.html" @click="${()=> this.changeCategory('carrito')}"><box-icon name='cart' type='solid' color='#ffffff' ></box-icon>Carrito <span class="numerito">0</span></a>
+            <button class="boton-menu boton-carrito" @click="${()=> this.changeCategory('carrito')}"><box-icon name='cart' type='solid' color='#ffffff' ></box-icon>Carrito <span class="numerito">0</span></button>
           </li>
         </ul>
       </nav>
@@ -52,6 +54,7 @@ export class MyElement extends LitElement {
     <main>
       <h2 class="titulo-principal">${this.selectedCategoria}</h2>
       <my-producto .category="${this.selectedCategoria}" @product-added="${this.updateNumber}"></my-producto>
+      ${this.showCarrito ? html`<my-carrito></my-carrito>` : ''}
     </main>
   </div>
     `
@@ -59,6 +62,16 @@ export class MyElement extends LitElement {
 
   changeCategory(category) {
     this.selectedCategoria = category;
+    if (this.selectedCategoria === 'carrito'){
+      if (!this.showCarrito) {
+        // Si no hay una instancia creada, cambia el estado para mostrarla
+        this.showCarrito = true;
+      }
+    } else {
+      // Si se selecciona otra categoría, oculta el carrito
+      this.showCarrito = false;
+    }
+    
   }
   updateNumber(){
     this.trolleyDetails();
@@ -69,6 +82,7 @@ export class MyElement extends LitElement {
     let conteo = data.length;
     this.number = conteo;
   }
+  
 
   static styles = css`
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
@@ -368,7 +382,7 @@ export class Productos extends LitElement{
             </div>
           `)
         : html`<p>No products yay.</p>`)
-      : html`<my-trolley class="trolley"></my-trolley>`}
+      : html``}
     </div>
     `;
   }
@@ -385,7 +399,7 @@ export class Productos extends LitElement{
       gap: 1rem;
   }
   .producto-imagen{
-      widht: 30vh;
+      width: 100%;
       border-radius: 1rem;
       height: 45vh;
   }
@@ -399,6 +413,7 @@ export class Productos extends LitElement{
       display: flex;
       flex-direction: column;
       gap: .25rem;
+      height: 20vh;
   }
   .producto-titulo{
       font-size: 1rem;
@@ -420,6 +435,195 @@ export class Productos extends LitElement{
   }
     `  
   }
+  
 }
+
+export class Carrito extends LitElement{
+  static properties = {
+    products: {type: Array},
+  }
+  constructor(){
+    super();
+    this.products = [];
+  }
+  render(){
+    return html`
+    <div class="carrito-productos">
+                <div class="carrito-producto">
+                    <img class="carrito-producto-imagen" src="../src/assets/free-nature-images.jpg" alt="">
+                    <div class="carrito-producto-titulo">
+                        <small>Titulo</small>
+                        <h3>Abrigo 01</h3>
+                    </div>
+                    <div class="carrito-producto-cantidad">
+                        <small>Cantidad</small>
+                        <p>1</p>
+                    </div>
+                    <div class="carrito-producto-precio">
+                        <small>Precio</small>
+                        <p>$1000</p>
+                    </div>
+                    <div class="carrito-producto-subtotal">
+                        <small>Subtotal</small>
+                        <p>$1000</p>
+                    </div>
+                    <button class="carrito-producto-eliminar">
+                        <box-icon  type='solid' name='trash' color="#961818"></box-icon>
+                    </button>
+                </div>
+                <div class="carrito-producto">
+                    <img class="carrito-producto-imagen" src="../src/assets/free-nature-images.jpg" alt="">
+                    <div class="carrito-producto-titulo">
+                        <small>Titulo</small>
+                        <h3>Abrigo 02</h3>
+                    </div>
+                    <div class="carrito-producto-cantidad">
+                        <small>Cantidad</small>
+                        <p>1</p>
+                    </div>
+                    <div class="carrito-producto-precio">
+                        <small>Precio</small>
+                        <p>$1000</p>
+                    </div>
+                    <div class="carrito-producto-subtotal">
+                        <small>Subtotal</small>
+                        <p>$1000</p>
+                    </div>
+                    <button class="carrito-producto-eliminar">
+                        <box-icon  type='solid' name='trash' color="#961818"></box-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="carrito-acciones">
+                <div class="carrito-acciones-izquierda">
+                    <button class="carrito-acciones-vaciar">Vaciar Carrito</button>
+                </div>
+                <div class="carrito-acciones-derecha">
+                    <div class="carrito-acciones-total">
+                        <p>Total:</p>
+                        <p id="total">$2000</p>
+                    </div>
+                    <button class="carrito-acciones-comprar">comprar ahora</button>
+                </div>
+            </div>
+    `   
+  }
+  static styles = css`
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --clr-main: #4b33a8;
+    --clr-main-light: #785ce9;
+    --clr-white: #ececec;
+    --clr-gray: #e2e2e2;
+    --clr-red: #961818;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, input, textarea, ul{
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/** CARRITO **/
+
+.contenedor-carrito{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.carrito-vacio,
+.carrito-comprado{
+  color: var(--clr-main);
+}
+.carrito-productos{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.carrito-producto{
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--clr-gray);
+  color: var(--clr-main);
+  padding: 0.5rem;
+  padding-right: 1.5rem;
+  border-radius: 1rem;
+  align-items: center;
+}
+.carrito-producto-imagen{
+  width: 4rem;
+  border-radius: 1rem;
+}
+.carrito-producto small{
+  font-size: .75rem;
+}
+.carrito-producto-eliminar{
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+.carrito-acciones{
+  display: flex;
+  justify-content: space-between;
+}
+.carrito-acciones-vaciar{
+  border: 0;
+  background-color: var(--clr-gray);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--clr-main);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.carrito-acciones-derecha{
+  display: flex;
+}
+.carrito-acciones-total{
+  display: flex;
+  border: 0;
+  background-color: var(--clr-gray);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--clr-main);
+  text-transform: uppercase;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  gap: 1rem;
+}
+.carrito-acciones-comprar{
+  border: 0;
+  background-color: var(--clr-main);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--clr-white);
+  text-transform: uppercase;
+  cursor: pointer;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.disabled{
+  display: none;
+}
+  `
+}
+
+
+customElements.define('my-carrito', Carrito)
 customElements.define('my-element', MyElement);
 customElements.define('my-producto', Productos);

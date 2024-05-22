@@ -10,6 +10,7 @@
     "carrito": "json-server --watch src/bd/carrito.json -p 5501"
   },
   "dependencies": {
+    "json-server": "^1.0.0-beta.0",
     "lit": "^3.1.2"
   },
   "devDependencies": {
