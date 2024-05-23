@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite & npm run carrito",
     "build": "vite build",
     "preview": "vite preview",
     "carrito": "json-server -h 172.16.101.146 src/bd/carrito.json -p 5670"
