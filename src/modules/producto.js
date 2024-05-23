@@ -56,7 +56,7 @@ export const getAllcoats = async()=>{
   } 
 
   export const getAllCarrito= async()=>{
-    let url = 'http://localhost:5501/carrito'
+    let url = 'http://172.16.101.146:5670/carrito'
     let options = {
         method: 'GET',
         Headers: {
@@ -70,7 +70,7 @@ export const getAllcoats = async()=>{
 
   export const getDeleteCarrito = async(id)=>{
     try{
-    let url = `http://localhost:5501/carrito/${id}`
+    let url = `http://172.16.101.146:5670/carrito/${id}`
     let options = {
       method: 'DELETE',
       headers: {
@@ -90,7 +90,7 @@ export const getAllcoats = async()=>{
     try{
     let data = await getAllCarrito();
     for (let item of data){
-      let url = `http://localhost:5501/carrito/${item.id}`
+      let url = `http://172.16.101.146:5670/carrito/${item.id}`
       let options = {
         method: 'DELETE',
         headers: {
@@ -111,7 +111,7 @@ export const getAllcoats = async()=>{
     try{
     let data = await getAllCarrito();
     for (let item of data){
-      let url = `http://localhost:5501/carrito/${item.id}`
+      let url = `http://172.16.101.146:5670/carrito/${item.id}`
       let options = {
         method: 'DELETE',
         headers: {
@@ -138,7 +138,7 @@ export const getAllcoats = async()=>{
         
         item.cantidad += 1; 
         found = true;
-        const response = await fetch(`http://localhost:5501/carrito/${item.id}`, {
+        const response = await fetch(`http://172.16.101.146:5670/carrito/${item.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -163,7 +163,7 @@ export const getAllcoats = async()=>{
         cantidad: 1
       };
   
-      const response = await fetch('http://localhost:5501/carrito', {
+      const response = await fetch('http://172.16.101.146:5670/carrito', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

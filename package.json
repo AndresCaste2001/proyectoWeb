@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "carrito": "json-server --watch src/bd/carrito.json -p 5501"
+    "carrito": "json-server -h 172.16.101.146 src/bd/carrito.json -p 5670"
   },
   "dependencies": {
     "json-server": "^1.0.0-beta.0",
