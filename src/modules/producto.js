@@ -65,12 +65,12 @@ export const getAllcoats = async()=>{
     }
     let responder = await fetch(url, options);
     let result = await responder.json();
-    return result
+    return result;
   }
 
   export const getDeleteCarrito = async(id)=>{
     try{
-    let url = `http://localhost:5501/carrito${id}`
+    let url = `http://localhost:5501/carrito/${id}`
     let options = {
       method: 'DELETE',
       headers: {
@@ -90,7 +90,7 @@ export const getAllcoats = async()=>{
     try{
     let data = await getAllCarrito();
     for (let item of data){
-      let url = `http://localhost:5501/carrito${item.id}`
+      let url = `http://localhost:5501/carrito/${item.id}`
       let options = {
         method: 'DELETE',
         headers: {
@@ -111,7 +111,7 @@ export const getAllcoats = async()=>{
     try{
     let data = await getAllCarrito();
     for (let item of data){
-      let url = `http://localhost:5501/carrito${item.id}`
+      let url = `http://localhost:5501/carrito/${item.id}`
       let options = {
         method: 'DELETE',
         headers: {
@@ -125,5 +125,54 @@ export const getAllcoats = async()=>{
     }
     } catch ( error){
       console.error('Ocurrió un error al obtener el carrito de compras:', error);
+    }
+  }
+
+  export const getProduct = async(product) => {
+    let data = await getAllCarrito();
+    let found = false;
+  
+    for (let item of data) {
+      if (item.nombre === product.nombre) {
+        item.id = `${item.id}`
+        
+        item.cantidad += 1; 
+        found = true;
+        const response = await fetch(`http://localhost:5501/carrito/${item.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item)
+        });
+        if (response.ok) {
+          console.log("Cantidad actualizada en el servidor");
+        } else {
+          console.error("Error al actualizar la cantidad en el servidor");
+        }
+        break;
+      }
+    }
+  
+    if (!found) {
+      const dataProduct = {
+        id: `${product.id}`,
+        nombre: product.nombre,
+        precio: product.precio,
+        imagen: product.imagen,
+        cantidad: 1
+      };
+  
+      const response = await fetch('http://localhost:5501/carrito', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataProduct)
+        });
+  
+      const trolleyData = await response.json();
+      localStorage.setItem('trolleyData', JSON.stringify(trolleyData));
+
     }
   }
